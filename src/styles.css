@@ -1,1 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Matemasie&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Condensed";
+    font-size: 12px;
+}
+:root{
+    --background-principal: white;
+    --background-second: rgba(241, 237, 240, 0.442);
+    --button: rgb(93, 151, 222);
+}
+
+.boton{
+    background-color: var(--button);
+    padding: 10px 10px;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all ease 200ms;
+    border: none;
+    color:white;
+    font-weight: 500;
+}
+.boton i{
+    font-weight: bold;
+}
+
+.boton:hover{
+    transform: scale(1.03);
+}
+
+.element-form{
+    display: flex;
+    flex-direction: column;
+}
+.element-form label, input{
+    font-size: 1.5rem;
+}
+.element-form label{
+    margin-bottom: 5px;
+    display: flex;
+}
+.element-form input{
+    margin-bottom: 7px;
+}
+.obligatorio{
+    color: red;
+    margin-left: 4px;
+    margin-top: 2px;
+}
+
+input{
+    border: 1px solid gray;
+    padding: 6px;
+    border-radius: 5px;
+}
+*::-webkit-scrollbar {
+    width: 4px;               
+  }
+*::-webkit-scrollbar-track {
+    background: white; 
+  }
+*::-webkit-scrollbar-thumb {
+    border-radius: 20px;       
+    border: 3px solid gray;  
+  }
+
+.btns{
+    margin-top: 10px;
+}
+.btns button{
+    margin-left: 5px;
+    width: 80px;
+    padding: 5px 2px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.close{
+    border: 1px solid var(--button);
+    color: var(--button);
+    background-color: var(--background-principal);
+}
+
+.save{
+    background-color: var(--button);
+    color: var(--background-principal);
+}
+
+.login-button{
+    display: flex;
+    font-size: 1.6rem;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.containt-button{
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1370px) {
+    *{
+        font-size: 11px;
+    }
+  }
+
+  @media only screen and (max-width: 650px) {
+    *{
+        font-size: 8px;
+    }
+    .layout{
+        flex-direction: column;
+    }
+  }

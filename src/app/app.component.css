@@ -1,0 +1,8 @@
+.layout{
+    width: 100%;
+    background-color: var(--background-second);
+    display: flex;
+}
+.layout div{
+    width: 100%;
+}

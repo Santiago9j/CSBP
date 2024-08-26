@@ -1,0 +1,35 @@
+header{
+    background-color: var(--background-principal);
+    height: 75px;
+    border-radius: 0 0 0 4px;
+    box-shadow: 6px 2px 14px rgba(0, 0, 0, 0.386);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 10px;
+    gap: 20px;
+}
+.message-welcome{
+    font-size: 2.2rem;
+}
+.profile{
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+}
+.profile img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.profile .info p{
+    font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 650px) {
+    header{
+        justify-content: space-between;
+    }
+  }

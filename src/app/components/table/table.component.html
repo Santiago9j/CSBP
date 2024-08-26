@@ -1,0 +1,42 @@
+<div class="main-table">
+    <div class="header-table">
+        <h4>{{title}}</h4>
+
+        <button class="boton" onClick="window.modal.showModal()" ><i class="fa-solid fa-plus"></i> {{"Agregar "+title}}</button>
+    </div>
+    <div class="table">
+        <div class="table-look">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar aquí" />
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th *ngIf="let column of columns">
+                        {{column}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let row of info">
+                    <td *ngFor="let key of keys">
+                        {{row[key]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <dialog id="modal">
+            <div class="modal">
+                <div class="header-modal">
+                    <i onClick="window.modal.close()" class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <ng-content></ng-content>
+                <div class="btns">
+                    <button class="close" onClick="window.modal.close()">Cerrar</button>
+                    <button class="save">Guardar</button>
+                </div>
+            </div>
+        </dialog>
+        
+    </div>
+</div>

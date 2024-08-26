@@ -1,0 +1,21 @@
+.login{
+    background-color: var(--background-principal);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login form{
+    border-radius: 10px;
+    padding: 20px;
+    background-color: var(--background-second);
+
+}
+
+.login form h2{
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--button);
+    padding-bottom: 15px;
+}

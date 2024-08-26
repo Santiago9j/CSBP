@@ -1,0 +1,55 @@
+<div>
+    <app-table title="Empleados" [columns]="['ID','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
+         ]">
+        <form>
+            <div class="element-form">
+                <label>
+                    Nombres: <span class="obligatorio">*</span>
+                </label>
+                <input type="text" required />
+            </div>
+            <div class="element-form">
+                <label>
+                    Primer Apellido: <span class="obligatorio">*</span>
+                </label>
+                <input type="text" required />
+            </div>
+            <div class="element-form">
+                <label>
+                    Segundo Apellido:
+                </label>
+                <input type="text" />
+            </div>
+            <div class="element-form">
+                <label>
+                    Edad: <span class="obligatorio">*</span>
+                </label>
+                <input type="date" required/>
+            </div>
+            <div class="element-form">
+                <label>
+                    Primer Apellido: <span class="obligatorio">*</span>
+                </label>
+                <input type="text" required />
+            </div>
+            <div class="element-form">
+                <label>
+                    Segundo Apellido:
+                </label>
+                <input type="text" />
+            </div>
+            <div class="element-form">
+                <label>
+                    Edad: <span class="obligatorio">*</span>
+                </label>
+                <input type="date" required/>
+            </div>
+        </form>    
+    </app-table>
+</div>
