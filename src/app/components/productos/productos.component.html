@@ -1,36 +1,45 @@
 <div>
-    <app-table title="Productos" [columns]="['ID','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
+    <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','Estado']" [info]="[{id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
+            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'}
          ]">
         <form>
             <div class="element-form">
                 <label>
-                    Nombres: <span class="obligatorio">*</span>
+                    Nombre: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" required />
             </div>
             <div class="element-form">
                 <label>
-                    Primer Apellido: <span class="obligatorio">*</span>
+                    Marca: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" required />
             </div>
             <div class="element-form">
                 <label>
-                    Segundo Apellido:
+                    Costo:<span class="obligatorio">*</span>
                 </label>
-                <input type="text" />
+                <input type="number" />
             </div>
             <div class="element-form">
                 <label>
-                    Edad: <span class="obligatorio">*</span>
+                    Cantidad disponible: <span class="obligatorio">*</span>
                 </label>
-                <input type="date" required/>
+                <input type="number" required/>
+            </div>
+            <div class="element-form">
+                <label>
+                    Estado: <span class="obligatorio">*</span>
+                </label>
+                <select>
+                    <option>Activo</option>
+                    <option>Desactivo</option>
+                </select>
             </div>
         </form>    
     </app-table>

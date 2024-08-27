@@ -1,55 +1,69 @@
 <div>
-    <app-table title="Ventas" [columns]="['ID','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiaog',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
+    <app-table title="Ventas" [columns]="['CÓDIGO','FECHA','TOTAL','PRODCUTOS','CLIENTE']" [info]="[{id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
+            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
+            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
+            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
+            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'}
          ]">
         <form>
             <div class="element-form">
                 <label>
-                    Nombres: <span class="obligatorio">*</span>
+                    Seleccione un cliente: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required />
+                <select>
+                    <option></option>
+                    <option>Jhoana Torres Aguirre</option>
+                    <option>Dennis Arles</option>
+                </select>
             </div>
             <div class="element-form">
                 <label>
-                    Primer Apellido: <span class="obligatorio">*</span>
+                    Seleccione un producto: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required />
+                <select>
+                    <option></option>
+                    <option>Producto 1</option>
+                    <option>Producto 2</option>
+                </select>
             </div>
             <div class="element-form">
                 <label>
-                    Segundo Apellido:
+                    Cantidad: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" />
+                <input type="number" required/>
             </div>
-            <div class="element-form">
-                <label>
-                    Edad: <span class="obligatorio">*</span>
-                </label>
-                <input type="date" required/>
+            <div class="btns productos">
+                <button class="save">Agregar</button>
             </div>
-            <div class="element-form">
-                <label>
-                    Primer Apellido: <span class="obligatorio">*</span>
-                </label>
-                <input type="text" required />
-            </div>
-            <div class="element-form">
-                <label>
-                    Segundo Apellido:
-                </label>
-                <input type="text" />
-            </div>
-            <div class="element-form">
-                <label>
-                    Edad: <span class="obligatorio">*</span>
-                </label>
-                <input type="date" required/>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prodcuto 1</td>
+                        <td>7</td>
+                        <td>4000</td>
+                        <td>
+                            <button class="eliminar-productos">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prodcuto 1</td>
+                        <td>7</td>
+                        <td>4000</td>
+                        <td>
+                            <button class="eliminar-productos">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span class="total">Cantidad total: 4999</span>
         </form>     
     </app-table>
 </div>

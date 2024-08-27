@@ -37,25 +37,7 @@
     font-size: 1.5rem;
 }
 
-table{
-    margin-top: 20px;
-    width: 100%;
-}
 
-table thead tr th{
-    background-color: var(--background-second);
-    font-size: 1.5rem;
-    padding: 5px;
-    text-align: start;
-}
-
-table tbody tr td{
-    padding-bottom: 12px;
-    padding: 12px 5px;
-    font-size: 1.5rem;
-    border-bottom: 3px solid var(--background-second);
-
-}
 
 dialog{
     margin: 7rem auto;
@@ -77,4 +59,12 @@ dialog{
 
 .header-modal{
     margin-bottom: 20px;
+}
+
+.detalles{
+    background-color: var(--button);
+    color: var(--background-principal);
+    border: none;
+    padding: 8px;
+    cursor: pointer;
 }

@@ -1,27 +1,9 @@
 <nav>
     <ul>
-        <li>
-            <div class="element-nav" routerLink="/ventas" routerLinkActive="active">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <a>Ventas</a>
-            </div>
-        </li>
-        <li>
-            <div class="element-nav" routerLink="/clientes" routerLinkActive="active">
-                <i class="fas fa-user-tag"></i>
-                <a>Clientes</a>
-            </div>
-        </li>
-        <li>
-            <div class="element-nav" routerLink="/productos" routerLinkActive="active">
-                <i class="fas fa-cart-arrow-down"></i>
-                <a >Productos</a>
-            </div>
-        </li>
-        <li>
-            <div class="element-nav" routerLink="/empleados" routerLinkActive="active" >
-                <i class="fas fa-building"></i>
-                <a>Empleados</a>
+        <li *ngFor="let modulo of modulos">
+            <div class="element-nav" routerLink={{modulo.ruta}} routerLinkActive="active">
+                <i class={{modulo.icono}}></i>
+                <a>{{modulo.nombre}}</a>
             </div>
         </li>
     </ul>

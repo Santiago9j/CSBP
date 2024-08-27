@@ -1,16 +1,22 @@
 <div>
-    <app-table title="Clientes" [columns]="['ID','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
+    <app-table title="Clientes" [columns]="['DNI','Nombre','Apellidos','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'}
          ]">
         <form>
             <div class="element-form">
                 <label>
-                    Nombres: <span class="obligatorio">*</span>
+                    DNI: <span class="obligatorio">*</span>
+                </label>
+                <input type="text" required />
+            </div>
+            <div class="element-form">
+                <label>
+                    Nombre: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" required />
             </div>
@@ -18,37 +24,16 @@
                 <label>
                     Primer Apellido: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required />
-            </div>
-            <div class="element-form">
-                <label>
-                    Segundo Apellido:
-                </label>
                 <input type="text" />
             </div>
             <div class="element-form">
                 <label>
-                    Edad: <span class="obligatorio">*</span>
+                    Estado: <span class="obligatorio">*</span>
                 </label>
-                <input type="date" required/>
-            </div>
-            <div class="element-form">
-                <label>
-                    Primer Apellido: <span class="obligatorio">*</span>
-                </label>
-                <input type="text" required />
-            </div>
-            <div class="element-form">
-                <label>
-                    Segundo Apellido:
-                </label>
-                <input type="text" />
-            </div>
-            <div class="element-form">
-                <label>
-                    Edad: <span class="obligatorio">*</span>
-                </label>
-                <input type="date" required/>
+                <select>
+                    <option>Activo</option>
+                    <option>Desactivo</option>
+                </select>
             </div>
         </form>    
 

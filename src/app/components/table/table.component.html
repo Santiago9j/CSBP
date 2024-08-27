@@ -12,7 +12,7 @@
         <table>
             <thead>
                 <tr>
-                    <th *ngIf="let column of columns">
+                    <th *ngFor="let column of columns">
                         {{column}}
                     </th>
                 </tr>
@@ -20,7 +20,9 @@
             <tbody >
                 <tr *ngFor="let row of info">
                     <td *ngFor="let key of keys">
-                        {{row[key]}}
+                        <div *ngIf="key == 'productos'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><button class="detalles">Ver detalles</button></ng-template>
+                        <ng-template #elseBlock>{{row[key]}}</ng-template>
                     </td>
                 </tr>
             </tbody>

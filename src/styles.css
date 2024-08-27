@@ -36,10 +36,10 @@
     display: flex;
     flex-direction: column;
 }
-.element-form label, input{
+.element-form label, input, select, option{
     font-size: 1.5rem;
 }
-.element-form label{
+.element-form label, select{
     margin-bottom: 5px;
     display: flex;
 }
@@ -52,7 +52,7 @@
     margin-top: 2px;
 }
 
-input{
+input, select{
     border: 1px solid gray;
     padding: 6px;
     border-radius: 5px;
@@ -83,7 +83,7 @@ input{
 }
 
 .close{
-    border: 1px solid var(--button);
+    border: 1px solid var(--button) !important;
     color: var(--button);
     background-color: var(--background-principal);
 }
@@ -105,6 +105,27 @@ input{
 .containt-button{
     display: flex;
     justify-content: center;
+}
+
+table{
+    margin-top: 20px;
+    width: 100%;
+}
+
+table thead tr th{
+    background-color: var(--background-second);
+    font-size: 1.5rem;
+    padding: 5px;
+    text-align: center;
+}
+
+table tbody tr td{
+    text-align: center;
+    padding-bottom: 12px;
+    padding: 12px 5px;
+    font-size: 1.5rem;
+    border-bottom: 3px solid var(--background-second);
+
 }
 
 @media only screen and (max-width: 1370px) {
