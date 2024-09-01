@@ -1,24 +1,20 @@
-<div class="login">
-    <form>
-        <h2>Inciar Sesión</h2>
-        <div class="element-form">
-            <label>
-                Usuario: <span class="obligatorio">*</span>
-            </label>
-            <input type="text" required placeholder="Santiago" />
+<div class="login-container">
+    <div class="login-box">
+      <h2 class="login-title">Iniciar Sesión</h2>
+      <form>
+        <div class="input-group">
+          <label for="username">Email</label>
+          <input type="text" id="email" name="email" placeholder="Ingresa tu correo" required>
         </div>
-        <div class="element-form">
-            <label>
-                Contraseña: <span class="obligatorio">*</span>
-            </label>
-            <input type="password" required />
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
         </div>
-        <div class="containt-button">
-            <button class="save login-button">Iniciar Sesión</button>
-        </div>
-        <div>
-            <hr/>
-            <p>¿No tienes una cuenta?, <a>Registrate</a></p>
-        </div>
-    </form>
-</div>
+        <button type="submit" class="login-button">Iniciar Sesión</button>
+      </form>
+      <div class="login-footer">
+        <a href="#">Olvidaste tu contraseña?</a>
+        <p>No tienes una cuenta? <a href="/registrate">Registrate</a></p>
+      </div>
+    </div>
+  </div>
