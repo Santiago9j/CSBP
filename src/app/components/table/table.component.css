@@ -68,3 +68,9 @@ dialog{
     padding: 8px;
     cursor: pointer;
 }
+
+.access{
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 700;
+}

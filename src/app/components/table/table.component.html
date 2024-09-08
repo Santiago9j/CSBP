@@ -1,8 +1,12 @@
 <div class="main-table">
     <div class="header-table">
         <h4>{{title}}</h4>
-
-        <button class="boton" onClick="window.modal.showModal()" ><i class="fa-solid fa-plus"></i> {{"Agregar "+title}}</button>
+        <ng-container *ngIf="rol == 'VENDEDOR' && title == 'Productos'; else other">
+            <span class="access">No tienes acceso para crear un producto</span>
+        </ng-container>
+        <ng-template #other>
+            <button class="boton" onClick="window.modal.showModal()" ><i class="fa-solid fa-plus"></i> {{"Agregar "+title}}</button>
+        </ng-template>
     </div>
     <div class="table">
         <div class="table-look">

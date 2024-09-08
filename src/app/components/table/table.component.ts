@@ -13,10 +13,12 @@ export class TableComponent  implements OnInit{
   @Input() columns:any = [];
   @Input() info:any  = []
   keys:any[] = []
+  rol:string|null = "";
 
   ngOnInit() {
     if (this.info.length > 0) {
       this.keys = Object.keys(this.info[0]);
+      this.rol = localStorage.getItem("rol");
     }
   }
 }
