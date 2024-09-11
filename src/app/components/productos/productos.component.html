@@ -7,40 +7,49 @@
             {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
             {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'}
          ]">
-        <form>
+        <form [formGroup]="productsForm" (ngSubmit)="submit()" form>
             <div class="element-form">
                 <label>
                     Nombre: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required />
+                <input type="text" required formControlName="nombre" />
+                <small *ngIf="productsForm.get('nombre')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Marca: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required />
+                <input type="text" required  formControlName="marca"/>
+                <small *ngIf="productsForm.get('marca')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Costo:<span class="obligatorio">*</span>
                 </label>
-                <input type="number" />
+                <input type="number" formControlName="costo" />
+                <small *ngIf="productsForm.get('costo')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Cantidad disponible: <span class="obligatorio">*</span>
                 </label>
-                <input type="number" required/>
+                <input type="number" required formControlName="cantidadDisponible"/>
+                <small *ngIf="productsForm.get('cantidadDisponible')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Estado: <span class="obligatorio">*</span>
                 </label>
-                <select>
+                <select formControlName="estado">
                     <option>Activo</option>
                     <option>Desactivo</option>
                 </select>
+                <small *ngIf="productsForm.get('estado')?.errors?.['required']">Este campo es requerido</small>
             </div>
-        </form>    
+            <div class="btns">
+                <button class="close" onClick="window.modal.close()">Cerrar</button>
+                <button class="save" type="submit">Guardar</button>
+            </div>    
+        </form>   
     </app-table>
 </div>
