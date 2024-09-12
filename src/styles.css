@@ -13,6 +13,10 @@
     --button: rgb(93, 151, 222);
 }
 
+body{
+    overflow: hidden;
+}
+
 .boton{
     background-color: var(--button);
     padding: 10px 10px;
@@ -130,6 +134,9 @@ small{
 @media only screen and (max-width: 1370px) {
     *{
         font-size: 11px;
+    }
+    body{
+        overflow: auto;
     }
   }
 

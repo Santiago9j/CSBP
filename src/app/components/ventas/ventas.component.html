@@ -5,35 +5,39 @@
             {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
             {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'}
          ]">
-        <form>
+        <form [formGroup]="venta">
             <div class="element-form">
                 <label>
                     Seleccione un cliente: <span class="obligatorio">*</span>
                 </label>
-                <select>
+                <select formControlName="cliente">
                     <option></option>
                     <option>Jhoana Torres Aguirre</option>
                     <option>Dennis Arles</option>
                 </select>
+                <small *ngIf="venta.get('cliente')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Seleccione un producto: <span class="obligatorio">*</span>
                 </label>
-                <select>
+                <select formControlName="producto">
                     <option></option>
                     <option>Producto 1</option>
                     <option>Producto 2</option>
                 </select>
+                <small *ngIf="venta.get('producto')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Cantidad: <span class="obligatorio">*</span>
                 </label>
-                <input type="number" required/>
+                <input type="number" required formControlName="cantidad" min="1"/>
+                <small *ngIf="venta.get('cantidad')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="venta.get('cantidad')?.errors?.['min']">Este campo no puede ser menor a 1</small>
             </div>
             <div class="btns productos">
-                <button class="save">Agregar</button>
+                <button class="save" type="submit" (click)="add()" >Agregar</button>
             </div>
             <table>
                 <thead>
@@ -64,6 +68,10 @@
                 </tbody>
             </table>
             <span class="total">Cantidad total: 4999</span>
+            <div class="btns">
+                <button class="close" onClick="window.modal.close()">Cerrar</button>
+                <button class="save" type="submit" (click)="submit()">Guardar</button>
+            </div>
         </form>     
     </app-table>
 </div>
