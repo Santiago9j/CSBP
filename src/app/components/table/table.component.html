@@ -1,11 +1,13 @@
 <div class="main-table">
     <div class="header-table">
-        <h4>{{title}}</h4>
+        <h4>{{ title }}</h4>
         <ng-container *ngIf="rol == 'VENDEDOR' && title == 'Productos'; else other">
             <span class="access">No tienes acceso para crear un producto</span>
         </ng-container>
         <ng-template #other>
-            <button class="boton" onClick="window.modal.showModal()" ><i class="fa-solid fa-plus"></i> {{"Agregar "+title}}</button>
+            <button class="boton" onClick="window.modal.showModal()">
+                <i class="fa-solid fa-plus"></i> Agregar {{title}}
+            </button>
         </ng-template>
     </div>
     <div class="table">
@@ -15,20 +17,28 @@
         </div>
         <table>
             <thead>
-                <tr>
-                    <th *ngFor="let column of columns">
-                        {{column}}
-                    </th>
-                </tr>
+            <tr>
+                <th *ngFor="let column of columns">{{ column }}</th>
+                <th *ngIf="rowActions.length > 0">Acciones</th> <!-- Column for actions -->
+            </tr>
             </thead>
-            <tbody >
-                <tr *ngFor="let row of info">
-                    <td *ngFor="let key of keys">
-                        <div *ngIf="key == 'productos'; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock><button class="detalles">Ver detalles</button></ng-template>
-                        <ng-template #elseBlock>{{row[key]}}</ng-template>
-                    </td>
-                </tr>
+            <tbody>
+            <tr *ngFor="let row of info">
+                <td *ngFor="let key of keys">
+                    <div *ngIf="key == 'productos'; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <button class="detalles">Ver detalles</button>
+                    </ng-template>
+                    <ng-template #elseBlock>{{ row[key] }}</ng-template>
+                </td>
+                <td *ngIf="rowActions.length > 0">
+                    <ng-container *ngFor="let rowAction of rowActions">
+                        <ng-container *ngIf="!rowAction.condition || rowAction.condition(row)">
+                            <button (click)="rowAction.method(row)">{{ rowAction.label }}</button>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
             </tbody>
         </table>
         <dialog id="modal">
@@ -39,6 +49,5 @@
                 <ng-content></ng-content>
             </div>
         </dialog>
-        
     </div>
 </div>

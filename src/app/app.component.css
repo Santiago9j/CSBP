@@ -1,0 +1,21 @@
+dialog{
+    margin: 7rem auto;
+    width: 50rem;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    max-height: calc(100vh - 14rem);
+}
+
+.modal div{
+    display: flex;
+    justify-content: end;
+}
+.modal div i{
+    cursor: pointer;
+}
+
+.header-modal{
+    margin-bottom: 20px;
+}

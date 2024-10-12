@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductosComponent implements OnInit {
   productsForm!: FormGroup
+  isEditModalOpen = false;
 
   ngOnInit(): void {
       this.productsForm = new FormGroup({
@@ -28,5 +29,14 @@ export class ProductosComponent implements OnInit {
     if (this.productsForm.valid){
       console.log("El formulario producto cumple con los requisitos")
     }
+  }
+
+  editProducto(row: any): void {
+        this.productsForm.patchValue(row);
+        this.isEditModalOpen = true;
+  }
+
+  canEditProducto(row: any): boolean {
+      return true;
   }
 }

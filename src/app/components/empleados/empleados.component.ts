@@ -12,7 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class EmpleadosComponent implements OnInit {
   empleadosForm!: FormGroup;
-  
+  isEditModalOpen = false;
+
   ngOnInit(): void {
       this.empleadosForm = new FormGroup({
         dni : new FormControl('',[Validators.required]),
@@ -25,9 +26,20 @@ export class EmpleadosComponent implements OnInit {
       })
   }
 
+  editEmpleado(row: any): void {
+     this.empleadosForm.patchValue(row);
+     this.isEditModalOpen = true;
+  }
+
+  canEditEmpleado(row: any): boolean {
+      return true;
+  }
+
   submit(){
     if (this.empleadosForm.valid){
       console.log("Empleado listo")
     }
   }
+
+
 }

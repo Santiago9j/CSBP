@@ -1,12 +1,20 @@
 <div>
-    <app-table title="Empleados" [columns]="['DNI','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
+    <app-table
+        title="Empleados"
+        [columns]="['DNI','Nombre','Apellidos','Edad','Correo','Estado']"
+        [rowActions]="[
+            { label: 'Editar', method: editEmpleado.bind(this), condition: canEditEmpleado.bind(this) }
+        ]"
+        [info]="[
+            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
             {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
-         ]">
+        ]"
+    >
         <form [formGroup]="empleadosForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
@@ -64,6 +72,72 @@
                 <button class="close" onClick="window.modal.close()">Cerrar</button>
                 <button class="save" type="submit">Guardar</button>
             </div>
-        </form>    
+        </form>
     </app-table>
+
+    <dialog [attr.open]="isEditModalOpen ? '' : null">
+        <div class="modal">
+            <div class="header-modal">
+                <i (click)="isEditModalOpen = false" class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <form [formGroup]="empleadosForm" (ngSubmit)="submit()">
+                <div class="element-form">
+                    <label>
+                        DNI: <span class="obligatorio">*</span>
+                    </label>
+                    <input type="text" required formControlName="dni"/>
+                    <small *ngIf="empleadosForm.get('dni')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Nombres: <span class="obligatorio">*</span>
+                    </label>
+                    <input type="text" required formControlName="nombres" />
+                    <small *ngIf="empleadosForm.get('nombres')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Primer Apellido: <span class="obligatorio">*</span>
+                    </label>
+                    <input type="text" required formControlName="primerApellido" />
+                    <small *ngIf="empleadosForm.get('primerApellido')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Segundo Apellido:
+                    </label>
+                    <input type="text" formControlName="segundoApellido" />
+                    <small *ngIf="empleadosForm.get('segundoApellido')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Fecha de nacimiento: <span class="obligatorio">*</span>
+                    </label>
+                    <input type="date" required formControlName="fechaNacimiento"/>
+                    <small *ngIf="empleadosForm.get('fechaNacimiento')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Correo: <span class="obligatorio">*</span>
+                    </label>
+                    <input type="email" required formControlName="correo"/>
+                    <small *ngIf="empleadosForm.get('correo')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="element-form">
+                    <label>
+                        Estado: <span class="obligatorio">*</span>
+                    </label>
+                    <select formControlName="estado">
+                        <option>Activo</option>
+                        <option>Desactivo</option>
+                    </select>
+                    <small *ngIf="empleadosForm.get('estado')?.errors?.['required']">Este campo es requerido</small>
+                </div>
+                <div class="btns">
+                    <button class="close" onClick="window.modal.close()">Cerrar</button>
+                    <button class="save" type="submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
 </div>
