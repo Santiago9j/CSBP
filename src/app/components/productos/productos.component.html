@@ -1,6 +1,6 @@
 <div>
     <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','ESTADO','ACCIONES']" [info]="productos" (delete)="onDelete($event)" (edit)="onEdit($event)"> 
-        <form [formGroup]="productsForm" (ngSubmit)="submit()" form>
+        <form [formGroup]="productsForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
                     Nombre: <span class="obligatorio">*</span>

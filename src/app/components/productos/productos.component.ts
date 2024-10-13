@@ -19,14 +19,13 @@ export class ProductosComponent implements OnInit {
   editando = false;
   productoEditadoId: number | null = null;
 
-  constructor(private productoService: ProductosService, private cdr: ChangeDetectorRef) {
+  constructor(private productoService: ProductosService) {
     this.getProductos();
   }
 
 
 
   ngOnInit(): void {
-    console.log("Soy el ")
     this.productsForm = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       marca: new FormControl('', [Validators.required]),
@@ -40,11 +39,9 @@ export class ProductosComponent implements OnInit {
   getProductos(): void {
     this.productoService.getProductos().subscribe(
       (data: IProducto[]) => {
-        console.log(" j" + JSON.stringify(data))
         this.productos = data;
       },
       (error: any) => {
-        console.log("No hay data")
         this.productos = []
       }
     )
@@ -94,7 +91,7 @@ export class ProductosComponent implements OnInit {
 
   abrirModal(): void {
     if (this.tableComponent) {
-      this.tableComponent.abrirModal(); // Llamar al método de TableComponent para abrir el modal
+      this.tableComponent.abrirModal();
     }
   }
 
@@ -126,6 +123,4 @@ export class ProductosComponent implements OnInit {
       this.getProductos();
     });
   }
-
-
 }

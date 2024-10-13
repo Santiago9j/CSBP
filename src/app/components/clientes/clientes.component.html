@@ -1,53 +1,46 @@
 <div>
-    <app-table title="Clientes" [columns]="['DNI','Nombre','Apellidos','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
-            {id:2,name:'Jhoana',lastname:'Alzate',estado:'desactivo'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',estado:'activa'}
-         ]">
-        <form [formGroup]="cliente" (ngSubmit)="submit()">
+    <app-table title="Clientes" [columns]="['ID','DNI','NOMBRE','PRIMER APELLIDO','SEGUNDO APELLIDO','ESTADO','ACCIONES']" [info]="clientes" (edit)="onEdit($event)" (delete)="onDelete($event)">
+        <form [formGroup]="clienteForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
                     DNI: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" required formControlName="dni"/>
-                <small *ngIf="cliente.get('dni')?.errors?.['required']" >Este campo es requerido</small>
+                <small *ngIf="clienteForm.get('dni')?.errors?.['required']" >Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Nombre: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" required formControlName="nombre"/>
-                <small *ngIf="cliente.get('nombre')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="clienteForm.get('nombre')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Primer Apellido: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" formControlName="primerApellido"/>
-                <small *ngIf="cliente.get('primerApellido')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="clienteForm.get('primerApellido')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Segundo Apellido: <span class="obligatorio">*</span>
                 </label>
                 <input type="text" formControlName="segundoApellido"/>
-                <small *ngIf="cliente.get('segundoApellido')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="clienteForm.get('segundoApellido')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Estado: <span class="obligatorio">*</span>
                 </label>
-                <select formControlName="estado">
-                    <option>Activo</option>
-                    <option>Desactivo</option>
+                <select formControlName="active">
+                    <option value=true>Activo</option>
+                    <option value=false>Desactivo</option>
                 </select>
-                <small *ngIf="cliente.get('estado')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="clienteForm.get('active')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="btns">
-                <button class="close" onClick="window.modal.close()">Cerrar</button>
+                <button class="close" (click)="cerrarModal()">Cerrar</button>
                 <button class="save" type="submit">Guardar</button>
             </div>
         </form>    
