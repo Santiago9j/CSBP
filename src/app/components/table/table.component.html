@@ -11,7 +11,7 @@
     <div class="table">
         <div class="table-look">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Buscar aquí" />
+            <input type="text" placeholder="Buscar aquí" [(ngModel)]="buscar" (input)="filtrar()" />
         </div>
         <table>
             <thead>
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody >
-                <tr *ngFor="let row of info">
+                <tr *ngFor="let row of filtro">
                     <td *ngFor="let key of keys">
                         <div *ngIf="key == 'productos'; then thenBlock else elseBlock"></div>
                         <ng-template #thenBlock><button class="detalles">Ver detalles</button></ng-template>
