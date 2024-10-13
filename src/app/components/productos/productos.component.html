@@ -1,12 +1,5 @@
 <div>
-    <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','Estado']" [info]="[{id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'},
-            {id:1,nombre:'Producto 1',marca:'Marca 1',costo:7000,cantidad:40,estado:'Activo'}
-         ]">
+    <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','ESTADO','ACCIONES']" [info]="productos" (delete)="onDelete($event)" (edit)="onEdit($event)"> 
         <form [formGroup]="productsForm" (ngSubmit)="submit()" form>
             <div class="element-form">
                 <label>
@@ -41,14 +34,14 @@
                     Estado: <span class="obligatorio">*</span>
                 </label>
                 <select formControlName="estado">
-                    <option>Activo</option>
-                    <option>Desactivo</option>
+                    <option value=1>Activo</option>
+                    <option value=0>Desactivo</option>
                 </select>
                 <small *ngIf="productsForm.get('estado')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="btns">
-                <button class="close" onClick="window.modal.close()">Cerrar</button>
-                <button class="save" type="submit">Guardar</button>
+                <button class="close" (click)="cerrarModal()">Cerrar</button>
+                <button type="submit" class="save">{{ editando ? 'Guardar Cambios' : 'Crear Producto' }}</button>
             </div>    
         </form>   
     </app-table>
