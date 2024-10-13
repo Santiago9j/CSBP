@@ -28,9 +28,15 @@
                         <ng-template #thenBlock><button class="detalles">Ver detalles</button></ng-template>
                         <ng-template #elseBlock>{{row[key]}}</ng-template>
                     </td>
-                    <td>
-                        <button class="edit-btn" (click)="editRow(row)">Editar</button>
-                        <button class="delete-btn" (click)="deleteRow(row['id'], row)" >Eliminar</button>
+                    <td class="action-buttons">
+                        <button class="btn edit-btn" (click)="editRow(row)" aria-label="Editar">
+                          <i class="fa-solid fa-file-pen" aria-hidden="true"></i>
+                          <span>Editar</span>
+                        </button>
+                        <button class="btn delete-btn" (click)="deleteRow(row)" aria-label="Eliminar">
+                          <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                          <span>Eliminar</span>
+                        </button>
                       </td>
                 </tr>
             </tbody>

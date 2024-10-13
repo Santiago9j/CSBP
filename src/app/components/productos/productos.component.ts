@@ -121,9 +121,8 @@ export class ProductosComponent implements OnInit {
     this.productoEditadoId = producto.id;
   }
 
-  onDelete(data: { id: number, body: any }) {
-    const { id, body } = data;
-    this.productoService.eliminarProducto(id, body).subscribe(() => {
+  onDelete(data:IProducto) {
+    this.productoService.eliminarProducto(data['id'], data).subscribe(() => {
       this.getProductos();
     });
   }

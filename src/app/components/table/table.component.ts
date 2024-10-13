@@ -13,7 +13,7 @@ export class TableComponent  implements OnChanges{
   @Input() columns:any = [];
   @Input() info:any[]  = []
   @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<{id:number, body:any}>();
+  @Output() delete = new EventEmitter<any>();
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
   keys:any[] = []
   rol:string|null = "";
@@ -33,8 +33,8 @@ export class TableComponent  implements OnChanges{
     this.edit.emit(row);
   }
   
-  deleteRow(id:number, body:any) {
-    this.delete.emit({id,body});
+  deleteRow(body:any) {
+    this.delete.emit(body);
   }
 
   abrirModal(): void {

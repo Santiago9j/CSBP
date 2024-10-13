@@ -76,3 +76,48 @@ dialog{
     font-size: 1.5rem;
     font-weight: 700;
 }
+
+
+/* Botones comunes */
+.btn {
+    height: 30px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn i {
+    margin-right: 5px;
+  }
+  
+  .edit-btn {
+    background-color: rgb(228, 190, 51);
+  }
+  
+  .edit-btn:hover {
+    background-color: rgb(200, 170, 40);
+  }
+  
+  .delete-btn {
+    background-color: red;
+  }
+  
+  .delete-btn:hover {
+    background-color: darkred;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
