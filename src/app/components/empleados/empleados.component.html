@@ -1,12 +1,11 @@
 <div>
-    <app-table title="Empleados" [columns]="['DNI','Nombre','Apellidos','Edad','Correo','Estado']" [info]="[{id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'},
-            {id:1,name:'Santiago',lastname:'Torres Aguirre',edad:25,correo:'lau@edu.co',estado:'activa'}
-         ]">
+    <app-table
+      title="Empleados"
+      [columns]="['Id', 'DNI', 'Nombre', 'Primer apellido', 'Segundo apellido', 'Email', 'Estado']"
+      [info]="empleados"
+      (delete)="onDelete($event)"
+      (edit)="onEdit($event)"
+    >
         <form [formGroup]="empleadosForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
@@ -17,10 +16,10 @@
             </div>
             <div class="element-form">
                 <label>
-                    Nombres: <span class="obligatorio">*</span>
+                    Nombre: <span class="obligatorio">*</span>
                 </label>
-                <input type="text" required formControlName="nombres" />
-                <small *ngIf="empleadosForm.get('nombres')?.errors?.['required']">Este campo es requerido</small>
+                <input type="text" required formControlName="nombre" />
+                <small *ngIf="empleadosForm.get('nombre')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
@@ -38,32 +37,25 @@
             </div>
             <div class="element-form">
                 <label>
-                    Fecha de nacimiento: <span class="obligatorio">*</span>
-                </label>
-                <input type="date" required formControlName="fechaNacimiento"/>
-                <small *ngIf="empleadosForm.get('fechaNacimiento')?.errors?.['required']">Este campo es requerido</small>
-            </div>
-            <div class="element-form">
-                <label>
                     Correo: <span class="obligatorio">*</span>
                 </label>
-                <input type="email" required formControlName="correo"/>
-                <small *ngIf="empleadosForm.get('correo')?.errors?.['required']">Este campo es requerido</small>
+                <input type="email" required formControlName="email"/>
+                <small *ngIf="empleadosForm.get('email')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
                     Estado: <span class="obligatorio">*</span>
                 </label>
-                <select formControlName="estado">
-                    <option>Activo</option>
-                    <option>Desactivo</option>
+                <select formControlName="active">
+                    <option value="1">Activo</option>
+                    <option value="0">Desactivo</option>
                 </select>
-                <small *ngIf="empleadosForm.get('estado')?.errors?.['required']">Este campo es requerido</small>
+                <small *ngIf="empleadosForm.get('active')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="btns">
                 <button class="close" onClick="window.modal.close()">Cerrar</button>
                 <button class="save" type="submit">Guardar</button>
             </div>
-        </form>    
+        </form>
     </app-table>
 </div>
