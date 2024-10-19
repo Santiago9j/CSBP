@@ -1,7 +1,7 @@
 <div>
     <app-table
       title="Empleados"
-      [columns]="['Id', 'DNI', 'Nombre', 'Primer apellido', 'Segundo apellido', 'Email', 'Estado']"
+      [columns]="['Id', 'DNI', 'Nombre', 'Primer apellido', 'Segundo apellido', 'Email', 'Estado', 'Admin']"
       [info]="empleados"
       (delete)="onDelete($event)"
       (edit)="onEdit($event)"

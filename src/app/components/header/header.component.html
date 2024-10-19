@@ -1,13 +1,13 @@
 <header>
     <div class="message-welcome">
-        {{time + name}}
+        {{time + user?.nombre}}
     </div>
     <div class="profile">
-        <img src={{imageProfile}} alt="profile">
+        <img src="{{imageProfile}}" alt="profile">
         <div class="info">
-            <p>{{fullname}}</p>
-            <p>{{email}}</p>
+            <p>{{user?.nombre}} {{user?.primerApellido}} {{user?.segundoApellido}}</p>
+            <p>{{user?.email}}</p>
         </div>
-        
+
     </div>
 </header>

@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,4 +11,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavbarComponent {
   @Input() modulos:any = [];
+
+  constructor(private router: Router) {
+  }
+
+  signOut(): void {
+    sessionStorage.removeItem("user");
+    this.router.navigate(['/login'])
+  }
 }

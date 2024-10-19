@@ -6,18 +6,21 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainComponent } from './components/main-component/main-component.component';
+import {AuthGuard} from "./auth.guard";
 
 export const routes: Routes = [
-    {path:'', redirectTo:'login', pathMatch:"full"},
-    {path:'login', component: LoginComponent,  },
-    {path:'registrate', component: SignUpComponent},
-    {path:'',
-        component: MainComponent,
-        children: [
-            {path: 'ventas', component: VentasComponent},
-            {path: 'productos', component: ProductosComponent},
-            {path: 'clientes', component: ClientesComponent},
-            {path: 'empleados', component: EmpleadosComponent}
-        ]
+    { path:'', redirectTo:'login', pathMatch:"full" },
+    { path:'login', component: LoginComponent, },
+    { path:'registrate', component: SignUpComponent },
+    {
+      path:'',
+      component: MainComponent,
+      children: [
+        {path: 'ventas', component: VentasComponent},
+        {path: 'productos', component: ProductosComponent},
+        {path: 'clientes', component: ClientesComponent},
+        {path: 'empleados', component: EmpleadosComponent}
+      ],
+      canActivate: [AuthGuard]
     }
 ];
