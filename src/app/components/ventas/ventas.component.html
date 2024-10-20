@@ -1,77 +1,68 @@
 <div>
-    <app-table title="Ventas" [columns]="['CÓDIGO','FECHA','TOTAL','PRODCUTOS','CLIENTE']" [info]="[{id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
-            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
-            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
-            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'},
-            {id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'}
-         ]">
-        <form [formGroup]="venta">
-            <div class="element-form">
-                <label>
-                    Seleccione un cliente: <span class="obligatorio">*</span>
-                </label>
-                <select formControlName="cliente">
-                    <option></option>
-                    <option>Jhoana Torres Aguirre</option>
-                    <option>Dennis Arles</option>
-                </select>
-                <small *ngIf="venta.get('cliente')?.errors?.['required']">Este campo es requerido</small>
-            </div>
-            <div class="element-form">
-                <label>
-                    Seleccione un producto: <span class="obligatorio">*</span>
-                </label>
-                <select formControlName="producto">
-                    <option></option>
-                    <option>Producto 1</option>
-                    <option>Producto 2</option>
-                </select>
-                <small *ngIf="venta.get('producto')?.errors?.['required']">Este campo es requerido</small>
-            </div>
-            <div class="element-form">
-                <label>
-                    Cantidad: <span class="obligatorio">*</span>
-                </label>
-                <input type="number" required formControlName="cantidad" min="1"/>
-                <small *ngIf="venta.get('cantidad')?.errors?.['required']">Este campo es requerido</small>
-                <small *ngIf="venta.get('cantidad')?.errors?.['min']">Este campo no puede ser menor a 1</small>
-            </div>
-            <div class="btns productos">
-                <button class="save" type="submit" (click)="add()" >Agregar</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Prodcuto 1</td>
-                        <td>7</td>
-                        <td>4000</td>
-                        <td>
-                            <button class="eliminar-productos">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Prodcuto 1</td>
-                        <td>7</td>
-                        <td>4000</td>
-                        <td>
-                            <button class="eliminar-productos">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <span class="total">Cantidad total: 4999</span>
-            <div class="btns">
-                <button class="close" onClick="window.modal.close()">Cerrar</button>
-                <button class="save" type="submit" (click)="submit()">Guardar</button>
-            </div>
-        </form>     
-    </app-table>
+  <app-table title="Ventas" [columns]="['CÓDIGO','FECHA','TOTAL','PRODUCTOS','CLIENTE']" [info]="[{id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'}]">
+    <form [formGroup]="ventaForm">
+      <div class="element-form">
+        <label>
+          Seleccione un cliente: <span class="obligatorio">*</span>
+        </label>
+        <select formControlName="cliente">
+          <option></option>
+          <option *ngFor="let c of clientes" [value]="c.id">{{c.nombre}} {{c.primerApellido}} {{c.segundoApellido}}</option>
+        </select>
+        <small *ngIf="ventaForm.get('cliente')?.errors?.['required']">Este campo es requerido</small>
+      </div>
+
+      <div class="element-form">
+        <label>
+          Seleccione un producto: <span class="obligatorio">*</span>
+        </label>
+        <select formControlName="producto">
+          <option></option>
+          <option *ngFor="let p of productos" [value]="p.id">{{p.nombre}}</option>
+        </select>
+        <small *ngIf="ventaForm.get('producto')?.errors?.['required']">Este campo es requerido</small>
+      </div>
+
+      <div class="element-form">
+        <label>
+          Cantidad: <span class="obligatorio">*</span>
+        </label>
+        <input type="number" required formControlName="cantidad" min="1"/>
+        <small *ngIf="ventaForm.get('cantidad')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="ventaForm.get('cantidad')?.errors?.['min']">Este campo no puede ser menor a 1</small>
+      </div>
+
+      <div class="btns productos">
+        <button class="save" type="button" (click)="add()">Agregar</button>
+      </div>
+
+      <table>
+        <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of selectedProducts; let i = index">
+          <td>{{item.producto.nombre}}</td>
+          <td>{{item.cantidad}}</td>
+          <td>{{item.subtotal}}</td>
+          <td>
+            <button class="eliminar-productos" type="button" (click)="remove(i)">Eliminar</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <span class="total">Cantidad total: {{total}}</span>
+
+      <div class="btns">
+        <button class="close" type="button" (click)="closeModal()">Cerrar</button>
+        <button class="save" type="submit" (click)="submit()">Guardar</button>
+      </div>
+    </form>
+  </app-table>
 </div>
