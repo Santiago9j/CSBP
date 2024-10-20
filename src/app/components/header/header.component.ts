@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { timer, windowTime } from 'rxjs';
+import {ILogin} from "../../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -11,9 +11,12 @@ import { timer, windowTime } from 'rxjs';
 export class HeaderComponent {
   time = obtenerMensajeSaludo()
   imageProfile:string = "https://cdn.vectorstock.com/i/500p/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg"
-  name: string = "Santiago"
-  fullname:string ="Santiago Torres Aguirre"
-  email:string = "santitorresaguirre@gmail.com"
+  user : ILogin | null = null;
+
+  ngOnInit(): void {
+    const userJson = JSON.parse(sessionStorage.getItem("user") || "");
+    this.user = userJson as ILogin || null;
+  }
 }
 
 function obtenerMensajeSaludo ():string{

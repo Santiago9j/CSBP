@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService, IRegister, IRegisterSend } from "../../services/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -10,19 +13,48 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent implements OnInit {
-  register!: FormGroup;
+  registerForm!: FormGroup;
+
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
-    this.register = new FormGroup({
+    this.registerForm = new FormGroup({
+      dni: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required]),
+      primerApellido: new FormControl('', [Validators.required]),
+      segundoApellido: new FormControl('', [Validators.required]),
       email: new FormControl('',[Validators.required, Validators.email]),
-      contrasena: new FormControl('',[Validators.required]),
-      confirmarContrasena: new FormControl('',[Validators.required])
-    })   
+      password: new FormControl('',[Validators.required]),
+      passwordConfirmation: new FormControl('',[Validators.required]),
+    })
   }
 
   submit(){
-    if (this.register.valid){
-      console.log("Formulario de register listo.")
-    }
+    if (!this.registerForm.valid) return;
+
+    const newUser = {
+      dni: this.registerForm.get("dni")?.value,
+      nombre: this.registerForm.get("nombre")?.value,
+      primerApellido: this.registerForm.get("primerApellido")?.value,
+      segundoApellido: this.registerForm.get("segundoApellido")?.value,
+      email: this.registerForm.get("email")?.value,
+      password: this.registerForm.get("password")?.value,
+    } as IRegisterSend;
+
+    this.authService.register(newUser).subscribe(
+      (data: IRegister) => {
+        this.router.navigate(['/login']);
+      },
+      (error: any) => {
+        this.snackBar.open('Hubo un error al registrarse', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          politeness: "assertive"
+        });
+        console.error("No se pudo insertar.... " + error);
+      }
+    );
   }
 }

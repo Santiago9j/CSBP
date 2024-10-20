@@ -15,13 +15,13 @@ export class TableComponent  implements OnChanges{
   @Input() info:any[]  = []
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() viewDetails = new EventEmitter<string>();
+
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
   buscar :string = '';
   filtro: any[] = [];
   keys:any[] = []
   rol:string|null = "";
-
-  
 
   ngOnChanges() {
     console.log("Info "+this.info)
@@ -38,7 +38,7 @@ export class TableComponent  implements OnChanges{
   editRow(row: any) {
     this.edit.emit(row);
   }
-  
+
   deleteRow(body:any) {
     this.delete.emit(body);
   }
@@ -60,13 +60,17 @@ export class TableComponent  implements OnChanges{
     if (this.buscar) {
       const buscarCase = this.buscar.toLowerCase();
       this.filtro = this.info.filter(item =>
-        this.keys.some(key => 
+        this.keys.some(key =>
           String(item[key]).toLowerCase().includes(buscarCase)
         )
       );
     } else {
       this.filtro = this.info;
     }
+  }
+
+  viewDetailsRow(codigo: string) {
+    this.viewDetails.emit(codigo);
   }
 }
 

@@ -18,3 +18,106 @@
     font-weight: bold;
     font-size: 1.7rem;
 }
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 700px;
+  max-width: 100%;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+  font-size: 17px;
+}
+
+
+table * {
+  font-size: 17px !important;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal p {
+  font-size: 17px !important;
+}
+
+.header-modal {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-modal i {
+  cursor: pointer;
+  /*font-size: 1.5rem;*/
+  color: #333;
+}
+
+.modal-content {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content h4 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin: 5px 0;
+}
+
+.modal-content ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.modal-content li {
+  background-color: #f0f0f0;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+/* Add animation for opening/closing modal */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog[open] {
+  opacity: 1;
+}
+
+dialog[close] {
+  opacity: 0;
+}
+
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.modal-content th,
+.modal-content td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.modal-content th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.modal-content tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

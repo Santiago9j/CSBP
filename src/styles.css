@@ -62,14 +62,14 @@ input, select{
     border-radius: 5px;
 }
 *::-webkit-scrollbar {
-    width: 4px;               
+    width: 4px;
   }
 *::-webkit-scrollbar-track {
-    background: white; 
+    background: white;
   }
 *::-webkit-scrollbar-thumb {
-    border-radius: 20px;       
-    border: 3px solid gray;  
+    border-radius: 20px;
+    border: 3px solid gray;
   }
 
 .btns{
@@ -148,3 +148,12 @@ small{
         flex-direction: column;
     }
   }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

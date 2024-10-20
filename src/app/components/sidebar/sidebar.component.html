@@ -3,16 +3,24 @@
         <i class="fa-solid fa-tag"></i>
         <h4>ModernShop</h4>
     </div>
-    <div *ngIf="rol == 'ADMIN'; then thenBlock else elseBlock"></div>
+    <div *ngIf="user?.admin; then thenBlock else elseBlock"></div>
         <ng-template #thenBlock>
-            <app-navbar [modulos]="[{ruta:'/ventas', icono:'fa-solid fa-basket-shopping', nombre:'Ventas'},
-                {ruta:'/clientes', icono:'fas fa-user-tag',nombre:'Clientes'},{ruta:'/productos',icono:'fas fa-cart-arrow-down', nombre:'Productos'},
-                {ruta:'/empleados', icono:'fas fa-building', nombre:'Empleados'}
-            ]"></app-navbar>
+            <app-navbar
+                [modulos]="[
+                    {ruta:'/ventas', icono:'fa-solid fa-basket-shopping', nombre:'Ventas'},
+                    {ruta:'/clientes', icono:'fas fa-user-tag',nombre:'Clientes'},
+                    {ruta:'/productos',icono:'fas fa-cart-arrow-down', nombre:'Productos'},
+                    {ruta:'/empleados', icono:'fas fa-building', nombre:'Empleados'}
+                ]">
+            </app-navbar>
         </ng-template>
         <ng-template #elseBlock>
-            <app-navbar [modulos]="[{ruta:'/ventas', icono:'fa-solid fa-basket-shopping', nombre:'Ventas'},
-                {ruta:'/clientes', icono:'fas fa-user-tag',nombre:'Clientes'},{ruta:'/productos',icono:'fas fa-cart-arrow-down', nombre:'Productos'}
-            ]"></app-navbar>
+            <app-navbar
+                [modulos]="[
+                    {ruta:'/ventas', icono:'fa-solid fa-basket-shopping', nombre:'Ventas'},
+                    {ruta:'/clientes', icono:'fas fa-user-tag',nombre:'Clientes'},
+                    {ruta:'/productos',icono:'fas fa-cart-arrow-down', nombre:'Productos'}
+                ]">
+            </app-navbar>
         </ng-template>
 </aside>

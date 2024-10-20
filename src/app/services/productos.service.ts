@@ -24,7 +24,7 @@ export interface IProductoSend{
   providedIn: 'root'
 })
 export class ProductosService {
-  private apiUrl = 'http://localhost:8085/producto';
+  private apiUrl = 'http://localhost:8080/producto';
 
   constructor(private http: HttpClient) { }
 
