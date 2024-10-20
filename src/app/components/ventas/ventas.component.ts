@@ -3,7 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {TableComponent} from "../table/table.component";
 import {CommonModule} from "@angular/common";
 import {IProducto, ProductosService} from "../../services/productos.service";
-import {IVenta, VentasService} from "../../services/ventas.service";
+import {IVenta, IVentaDetalle, VentasService} from "../../services/ventas.service";
 import {ClientesService, ICliente} from "../../services/clientes.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ILogin} from "../../services/auth.service";
@@ -28,9 +28,11 @@ interface ISelectedProduct {
 export class VentasComponent implements OnInit {
   ventaForm!: FormGroup;
   user!: ILogin;
+  ventas: IVenta[] = [];
   clientes: ICliente[] = [];
   productos: IProducto[] = [];
   selectedProducts: ISelectedProduct[] = [];
+  currentVentaDetalle?: IVentaDetalle
   total: number = 0;
 
   constructor(
@@ -41,6 +43,18 @@ export class VentasComponent implements OnInit {
   ) {
     this.getProductos();
     this.getClientes();
+    this.getVentas();
+  }
+
+  getVentas(): void {
+    this.ventaService.getVentas().subscribe(
+      (data: IVenta[]) => {
+        this.ventas = data.map(p => ({...p, productos: ''}))
+      },
+      (error: any) => {
+        this.productos = []
+      }
+    )
   }
 
   getProductos(): void {
@@ -65,6 +79,20 @@ export class VentasComponent implements OnInit {
     )
   }
 
+  getVentaDetalle(codigo: string): void {
+    this.ventaService.getVentaDetalle(codigo).subscribe(
+      (data: IVentaDetalle) => {
+        this.currentVentaDetalle = data;
+      },
+    )
+  }
+
+  openDetailsModal(codigo: string): void {
+    this.getVentaDetalle(codigo);
+    const modalElement = document.querySelector('#ventaDetalleModal') as HTMLDialogElement;
+    modalElement?.showModal();
+  }
+
   ngOnInit(): void {
     const userJson = JSON.parse(sessionStorage.getItem("user") || "");
     this.user = userJson as ILogin;
@@ -76,7 +104,7 @@ export class VentasComponent implements OnInit {
     });
   }
 
-  add() {
+  addProduct() {
     if (this.ventaForm.valid) {
       const productoId = parseInt(this.ventaForm.get('producto')?.value);
       const producto = this.productos.find(p => p.id === productoId) as IProducto;
@@ -90,7 +118,7 @@ export class VentasComponent implements OnInit {
     }
   }
 
-  remove(index: number) {
+  removeProduct(index: number) {
     const item = this.selectedProducts[index];
     this.total -= item.subtotal;
     this.selectedProducts.splice(index, 1);
@@ -121,6 +149,7 @@ export class VentasComponent implements OnInit {
           politeness: "assertive"
         });
         this.closeModal();
+        this.getVentas();
       },
       (error: any) => {
         this.snackBar.open('Hubo un error registrando la venta', 'Cerrar', {
@@ -138,5 +167,17 @@ export class VentasComponent implements OnInit {
     // @ts-ignore
     window.modal.close();
     this.ventaForm.reset();
+  }
+
+  closeDetailsModal() {
+    // @ts-ignore
+    window.ventaDetalleModal.close();
+    this.ventaForm.reset();
+  }
+
+  calculateTotal(productos: IVentaDetalle["productos"] | undefined): number {
+    if (!productos) return 0;
+
+    return productos.reduce((acc, item) => acc + item.subtotal, 0);
   }
 }

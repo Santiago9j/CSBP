@@ -1,5 +1,10 @@
 <div>
-  <app-table title="Ventas" [columns]="['CÓDIGO','FECHA','TOTAL','PRODUCTOS','CLIENTE']" [info]="[{id:1,fecha:'8 de Agosto de 2024',total:70000,productos:'',cliente:'Jhoana Torres Aguirre'}]">
+  <app-table
+    title="Ventas"
+    [columns]="['CÓDIGO','FECHA','TOTAL','CLIENTE', 'PRODUCTOS']"
+    [info]="ventas"
+    (viewDetails)="openDetailsModal($event)"
+  >
     <form [formGroup]="ventaForm">
       <div class="element-form">
         <label>
@@ -33,7 +38,7 @@
       </div>
 
       <div class="btns productos">
-        <button class="save" type="button" (click)="add()">Agregar</button>
+        <button class="save" type="button" (click)="addProduct()">Agregar</button>
       </div>
 
       <table>
@@ -51,7 +56,7 @@
           <td>{{item.cantidad}}</td>
           <td>{{item.subtotal}}</td>
           <td>
-            <button class="eliminar-productos" type="button" (click)="remove(i)">Eliminar</button>
+            <button class="eliminar-productos" type="button" (click)="removeProduct(i)">Eliminar</button>
           </td>
         </tr>
         </tbody>
@@ -65,4 +70,40 @@
       </div>
     </form>
   </app-table>
+
+  <dialog id="ventaDetalleModal">
+    <div class="modal">
+      <div class="header-modal">
+        <i (click)="closeDetailsModal()" class="fa-solid fa-circle-xmark"></i>
+      </div>
+      <div class="modal-content">
+        <h4>Detalles de la Venta</h4>
+
+        <p>Cliente: {{currentVentaDetalle?.cliente}}</p>
+
+        <table>
+          <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let producto of currentVentaDetalle?.productos">
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.cantidad}}</td>
+            <td>{{producto.subtotal | currency}}</td>
+          </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">Total</td>
+              <td>{{calculateTotal(currentVentaDetalle?.productos) | currency}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </dialog>
 </div>

@@ -77,6 +77,7 @@ export class EmpleadosComponent implements OnInit {
           },
           (error: any) => {
             console.error("No se pudo insertar.... " + error);
+            this.getEmpleados();
           }
         );
         this.empleadosForm.reset();
