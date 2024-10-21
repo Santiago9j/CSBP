@@ -96,12 +96,10 @@ export class ProductosComponent implements OnInit {
   }
 
   cerrarModal(): void {
-    if (this.tableComponent) {
-      this.tableComponent.cerrarModal();
-    }
     this.productsForm.reset(); 
     this.editando = false; 
     this.productoEditadoId = null;
+    this.tableComponent.cerrarModal();
   }
 
 

@@ -49,7 +49,7 @@
         <dialog #modal id="modal">
             <div class="modal">
                 <div class="header-modal">
-                    <i onClick="window.modal.close()" class="fa-solid fa-circle-xmark"></i>
+                    <i (click)="limpiarModal()" class="fa-solid fa-circle-xmark"></i>
                 </div>
                 <ng-content></ng-content>
             </div>

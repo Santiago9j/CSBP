@@ -24,7 +24,7 @@ export interface IClienteSend{
   providedIn: 'root'
 })
 export class ClientesService {
-  private apiUrl = 'http://localhost:8080/cliente';
+  private apiUrl = 'http://localhost:8085/cliente';
 
   constructor(private http: HttpClient) { }
 

@@ -15,6 +15,7 @@ export class TableComponent  implements OnChanges{
   @Input() info:any[]  = []
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() close = new EventEmitter<any>();
   @Output() viewDetails = new EventEmitter<string>();
 
   @ViewChild('modal') modal!: ElementRef<HTMLDialogElement>;
@@ -55,6 +56,9 @@ export class TableComponent  implements OnChanges{
     }
   }
 
+  limpiarModal(): void {
+      this.close.emit()
+  }
 
   filtrar(): void {
     if (this.buscar) {
