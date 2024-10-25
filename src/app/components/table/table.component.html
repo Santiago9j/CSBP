@@ -21,30 +21,33 @@
                     </th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <tr *ngFor="let row of filtro">
                     <td *ngFor="let key of keys">
-                        <div *ngIf="key == 'productos'; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>
-                          <button class="detalles" (click)="viewDetailsRow(row.codigo)">Ver detalles</button>
+                        <ng-container *ngIf="key === 'imagen'; else otherContent">
+                            <img [src]="row[key]" alt="Imagen de producto" class="imagen-producto" />
+                        </ng-container>
+                        <ng-template #otherContent>
+                            <ng-container *ngIf="key === 'productos'; else defaultContent">
+                                <button class="detalles" (click)="viewDetailsRow(row.codigo)">Ver detalles</button>
+                            </ng-container>
+                            <ng-template #defaultContent>
+                                {{ row[key] }}
+                            </ng-template>
                         </ng-template>
-                        <ng-template #elseBlock>{{row[key]}}</ng-template>
                     </td>
-                    <div *ngIf="!info[0]?.total && !(info[0]?.total == 0); then thenBlock"></div>
-                    <ng-template #thenBlock>
-                      <td class="action-buttons">
-                          <button class="btn edit-btn" (click)="editRow(row)" aria-label="Editar">
+                    <td *ngIf="!info[0]?.total && !(info[0]?.total == 0)">
+                        <button class="btn edit-btn" (click)="editRow(row)" aria-label="Editar">
                             <i class="fa-solid fa-file-pen" aria-hidden="true"></i>
                             <span>Editar</span>
-                          </button>
-                          <button class="btn delete-btn" (click)="deleteRow(row)" aria-label="Eliminar">
+                        </button>
+                        <button class="btn delete-btn" (click)="deleteRow(row)" aria-label="Eliminar">
                             <i class="fa-solid fa-trash" aria-hidden="true"></i>
                             <span>Eliminar</span>
-                          </button>
-                      </td>
-                    </ng-template>
+                        </button>
+                    </td>
                 </tr>
-            </tbody>
+            </tbody>            
         </table>
         <dialog #modal id="modal">
             <div class="modal">

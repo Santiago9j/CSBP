@@ -115,9 +115,8 @@ dialog{
     background-color: darkred;
   }
   
-  .action-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  .imagen-producto{
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
   }

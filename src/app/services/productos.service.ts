@@ -8,6 +8,7 @@ export interface IProducto{
   marca: string;
   costo: number;
   cantidad: number;
+  imagen: string;
   activo: boolean
 }
 
@@ -16,6 +17,7 @@ export interface IProductoSend{
     marca: string;
     costo: number;
     cantidad: number;
+    imagen: string;
     activo: number;
 }
 

@@ -1,5 +1,5 @@
 <div>
-    <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','ESTADO','ACCIONES']" [info]="productos" (delete)="onDelete($event)" (edit)="onEdit($event)" (close)="cerrarModal()"> 
+    <app-table title="Productos" [columns]="['CÓDIGO','NOMBRE','MARCA','COSTO','CANTIDAD DISPONIBLE','IMAGEN','ESTADO','ACCIONES']" [info]="productos" (delete)="onDelete($event)" (edit)="onEdit($event)" (close)="cerrarModal()"> 
         <form [formGroup]="productsForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
@@ -28,6 +28,13 @@
                 </label>
                 <input type="number" required formControlName="cantidadDisponible"/>
                 <small *ngIf="productsForm.get('cantidadDisponible')?.errors?.['required']">Este campo es requerido</small>
+            </div>
+            <div class="element-form">
+                <label>
+                    URL de la imagen: <span class="obligatorio">*</span>
+                </label>
+                <input type="text" required formControlName="imagen"/>
+                <small *ngIf="productsForm.get('imagen')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="element-form">
                 <label>
