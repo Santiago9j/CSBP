@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService, IRegister, IRegisterSend } from "../../services/auth.service";
+import {AuthService, IAPIResponse, IRegisterSend} from "../../services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -43,8 +43,17 @@ export class SignUpComponent implements OnInit {
     } as IRegisterSend;
 
     this.authService.register(newUser).subscribe(
-      (data: IRegister) => {
-        this.router.navigate(['/login']);
+      (data: IAPIResponse) => {
+        if (data.success) {
+          this.router.navigate(['/login']);
+        }
+
+        this.snackBar.open(data.message, 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          politeness: "assertive"
+        });
       },
       (error: any) => {
         this.snackBar.open('Hubo un error al registrarse', 'Cerrar', {
