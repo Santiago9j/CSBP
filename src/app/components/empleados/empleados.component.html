@@ -5,6 +5,7 @@
       [info]="empleados"
       (delete)="onDelete($event)"
       (edit)="onEdit($event)"
+      (close)="cerrarModal()"
     >
         <form [formGroup]="empleadosForm" (ngSubmit)="submit()">
             <div class="element-form">
@@ -51,6 +52,16 @@
                     <option value="0">Desactivo</option>
                 </select>
                 <small *ngIf="empleadosForm.get('active')?.errors?.['required']">Este campo es requerido</small>
+            </div>
+            <div class="element-form">
+              <label>
+                Es admin: <span class="obligatorio">*</span>
+              </label>
+              <select formControlName="isAdmin">
+                <option value="1">Si</option>
+                <option value="0" selected>No</option>
+              </select>
+              <small *ngIf="empleadosForm.get('isAdmin')?.errors?.['required']">Este campo es requerido</small>
             </div>
             <div class="btns">
                 <button class="close" onClick="window.modal.close()">Cerrar</button>

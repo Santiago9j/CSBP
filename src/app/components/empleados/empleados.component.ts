@@ -3,6 +3,9 @@ import { TableComponent } from "../table/table.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {EmpleadosService, IEmpleado, IEmpleadoSend} from "../../services/empleados.service";
+import {IAPIResponse, ILogin} from "../../services/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-empleados',
@@ -18,8 +21,14 @@ export class EmpleadosComponent implements OnInit {
   empleados: IEmpleado[] = []
   editando = false;
   empleadoEditadoId?: number = undefined;
+  user : ILogin | null = null;
 
-  constructor(private empleadoService: EmpleadosService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private empleadoService: EmpleadosService,
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
     this.getEmpleados();
   }
 
@@ -30,8 +39,12 @@ export class EmpleadosComponent implements OnInit {
       primerApellido: new FormControl('', [Validators.required]),
       segundoApellido: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
-      active: new FormControl('', [Validators.required])
+      active: new FormControl('', [Validators.required]),
+      isAdmin: new FormControl('', [Validators.required])
     })
+
+    const userJson = JSON.parse(sessionStorage.getItem("user") || "");
+    this.user = userJson as ILogin || null;
   }
 
   getEmpleados(): void {
@@ -47,44 +60,74 @@ export class EmpleadosComponent implements OnInit {
   }
 
   submit() {
-    if (this.empleadosForm.valid) {
-      const empleado = {
-        dni: this.empleadosForm.get("dni")?.value,
-        nombre: this.empleadosForm.get("nombre")?.value,
-        primerApellido: this.empleadosForm.get("primerApellido")?.value,
-        segundoApellido: this.empleadosForm.get("segundoApellido")?.value,
-        email: this.empleadosForm.get("email")?.value,
-        active: Boolean(parseInt(this.empleadosForm.get("active")?.value))
-      } as IEmpleadoSend;
+    if (!this.empleadosForm.valid) return;
 
-      if (this.editando && this.empleadoEditadoId) {
-        this.empleadoService.editarEmpleado(this.empleadoEditadoId as number, empleado).subscribe(
-          () => {
-            console.log("Empleado actualizado con éxito");
+    const empleado = {
+      dni: this.empleadosForm.get("dni")?.value,
+      nombre: this.empleadosForm.get("nombre")?.value,
+      primerApellido: this.empleadosForm.get("primerApellido")?.value,
+      segundoApellido: this.empleadosForm.get("segundoApellido")?.value,
+      email: this.empleadosForm.get("email")?.value,
+      active: Boolean(parseInt(this.empleadosForm.get("active")?.value)),
+      admin: Boolean(parseInt(this.empleadosForm.get("isAdmin")?.value)),
+    } as IEmpleadoSend;
+
+    if (this.editando && this.empleadoEditadoId) {
+      this.empleadoService.editarEmpleado(this.empleadoEditadoId as number, empleado).subscribe(
+        (data: IAPIResponse) => {
+          if (data.success) {
             this.getEmpleados();
             this.editando = false;
             this.empleadoEditadoId = undefined;
-          },
-          (error: any) => {
-            console.error("No se pudo actualizar.... " + error);
+            this.cerrarModal();
           }
-        );
-        this.cerrarModal();
-      } else {
-        this.empleadoService.createEmpleado(empleado).subscribe(
-          (data: IEmpleado) => {
-            this.getEmpleados();
-          },
-          (error: any) => {
-            console.error("No se pudo insertar.... " + error);
-            this.getEmpleados();
-          }
-        );
-        this.empleadosForm.reset();
-        this.cerrarModal();
+
+          this.snackBar.open(data.message, 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            politeness: "assertive"
+          });
+
+        },
+        (error: any) => {
+          this.snackBar.open('Hubo un error al actualizar', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            politeness: "assertive"
+          });
+        }
+      );
+
+      return;
+    }
+
+    this.empleadoService.createEmpleado(empleado).subscribe(
+      (data: IAPIResponse) => {
+        this.snackBar.open(data.message, 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          politeness: "assertive"
+        });
+
+        if (data.success) {
+          this.empleadosForm.reset();
+          this.cerrarModal();
+          this.getEmpleados();
+        }
+      },
+      (error: any) => {
+        this.snackBar.open('No se pudo agregar', 'Cerrar', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          politeness: "assertive"
+        });
         this.getEmpleados();
       }
-    }
+    );
   }
 
   abrirModal(): void {
@@ -94,12 +137,10 @@ export class EmpleadosComponent implements OnInit {
   }
 
   cerrarModal(): void {
-    if (this.tableComponent) {
-      this.tableComponent.cerrarModal();
-    }
     this.empleadosForm.reset();
     this.editando = false;
     this.empleadoEditadoId = undefined;
+    this.tableComponent.cerrarModal();
   }
 
   onEdit(empleado: IEmpleado) {
@@ -111,7 +152,8 @@ export class EmpleadosComponent implements OnInit {
       primerApellido: empleado.primerApellido,
       segundoApellido: empleado.segundoApellido,
       email: empleado.email,
-      active: empleado.active ? "1" : "0"
+      active: empleado.active ? "1" : "0",
+      isAdmin: empleado.admin ? "1" : "0"
     });
 
     this.editando = true;
@@ -120,6 +162,12 @@ export class EmpleadosComponent implements OnInit {
 
   onDelete({ id }: { id: number, body: any }) {
     this.empleadoService.eliminarEmpleado(id).subscribe(() => {
+      if (id == this.user?.id) {
+        sessionStorage.removeItem("user");
+        this.router.navigate(['/login'])
+        return;
+      }
+
       this.getEmpleados();
     });
   }

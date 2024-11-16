@@ -39,11 +39,16 @@ export interface IRegisterSend {
   password: string
 }
 
+export interface IAPIResponse {
+  success: boolean
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8085/auth';
+  private apiUrl = 'http://localhost:8080/auth';
 
   constructor(private http: HttpClient) { }
 
@@ -51,7 +56,7 @@ export class AuthService {
     return this.http.post<ILogin>(`${this.apiUrl}/login`, login);
   }
 
-  register(register: IRegisterSend): Observable<IRegister> {
-    return this.http.post<IRegister>(`${this.apiUrl}/register`, register);
+  register(register: IRegisterSend): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(`${this.apiUrl}/register`, register);
   }
 }

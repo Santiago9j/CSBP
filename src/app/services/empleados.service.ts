@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {IAPIResponse} from "./auth.service";
 
 export interface IEmpleado{
   id?: number
@@ -10,6 +11,7 @@ export interface IEmpleado{
   segundoApellido: string
   email: string
   active: boolean
+  admin: boolean
 }
 
 export interface IEmpleadoSend{
@@ -20,6 +22,7 @@ export interface IEmpleadoSend{
   segundoApellido: string
   email: string
   active: boolean
+  admin: boolean
 }
 
 @Injectable({
@@ -27,7 +30,7 @@ export interface IEmpleadoSend{
 })
 
 export class EmpleadosService {
-  private apiUrl = 'http://localhost:8085/user';
+  private apiUrl = 'http://localhost:8080/user';
 
   constructor(private http: HttpClient) { }
 
@@ -35,12 +38,12 @@ export class EmpleadosService {
     return this.http.get<IEmpleado[]>(`${this.apiUrl}/list`);
   }
 
-  createEmpleado(empleado: IEmpleadoSend): Observable<IEmpleado> {
-    return this.http.post<IEmpleado>(this.apiUrl, empleado);
+  createEmpleado(empleado: IEmpleadoSend): Observable<IAPIResponse> {
+    return this.http.post<IAPIResponse>(this.apiUrl, empleado);
   }
 
-  editarEmpleado(id: number, empleado: IEmpleado): Observable<IEmpleado>{
-    return this.http.put<IEmpleado>(`${this.apiUrl}/${id}`, empleado)
+  editarEmpleado(id: number, empleado: IEmpleadoSend): Observable<IAPIResponse>{
+    return this.http.put<IAPIResponse>(`${this.apiUrl}/${id}`, empleado)
   }
 
   eliminarEmpleado(id: number): Observable<IEmpleado>{

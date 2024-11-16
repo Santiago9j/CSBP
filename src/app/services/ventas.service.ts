@@ -28,7 +28,7 @@ export interface IVentaDetalle {
   providedIn: 'root'
 })
 export class VentasService {
-  private apiUrl = 'http://localhost:8085/venta';
+  private apiUrl = 'http://localhost:8080/venta';
 
   constructor(private http: HttpClient) { }
 

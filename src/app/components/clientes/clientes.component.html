@@ -1,5 +1,12 @@
 <div>
-    <app-table title="Clientes" [columns]="['ID','DNI','NOMBRE','PRIMER APELLIDO','SEGUNDO APELLIDO','ESTADO','ACCIONES']" [info]="clientes" (edit)="onEdit($event)" (delete)="onDelete($event)">
+    <app-table
+      title="Clientes"
+      [columns]="['ID','DNI','NOMBRE','PRIMER APELLIDO','SEGUNDO APELLIDO','ESTADO','ACCIONES']"
+      [info]="clientes"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (close)="cerrarModal()"
+    >
         <form [formGroup]="clienteForm" (ngSubmit)="submit()">
             <div class="element-form">
                 <label>
@@ -43,7 +50,7 @@
                 <button class="close" (click)="cerrarModal()">Cerrar</button>
                 <button class="save" type="submit">Guardar</button>
             </div>
-        </form>    
+        </form>
 
 
     </app-table>
