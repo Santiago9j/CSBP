@@ -3,8 +3,9 @@ import { TableComponent } from "../table/table.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {EmpleadosService, IEmpleado, IEmpleadoSend} from "../../services/empleados.service";
-import {IAPIResponse} from "../../services/auth.service";
+import {IAPIResponse, ILogin} from "../../services/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-empleados',
@@ -20,8 +21,14 @@ export class EmpleadosComponent implements OnInit {
   empleados: IEmpleado[] = []
   editando = false;
   empleadoEditadoId?: number = undefined;
+  user : ILogin | null = null;
 
-  constructor(private empleadoService: EmpleadosService, private cdr: ChangeDetectorRef, private snackBar: MatSnackBar) {
+  constructor(
+    private empleadoService: EmpleadosService,
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {
     this.getEmpleados();
   }
 
@@ -35,6 +42,9 @@ export class EmpleadosComponent implements OnInit {
       active: new FormControl('', [Validators.required]),
       isAdmin: new FormControl('', [Validators.required])
     })
+
+    const userJson = JSON.parse(sessionStorage.getItem("user") || "");
+    this.user = userJson as ILogin || null;
   }
 
   getEmpleados(): void {
@@ -127,12 +137,10 @@ export class EmpleadosComponent implements OnInit {
   }
 
   cerrarModal(): void {
-    if (this.tableComponent) {
-      this.tableComponent.cerrarModal();
-    }
     this.empleadosForm.reset();
     this.editando = false;
     this.empleadoEditadoId = undefined;
+    this.tableComponent.cerrarModal();
   }
 
   onEdit(empleado: IEmpleado) {
@@ -154,6 +162,12 @@ export class EmpleadosComponent implements OnInit {
 
   onDelete({ id }: { id: number, body: any }) {
     this.empleadoService.eliminarEmpleado(id).subscribe(() => {
+      if (id == this.user?.id) {
+        sessionStorage.removeItem("user");
+        this.router.navigate(['/login'])
+        return;
+      }
+
       this.getEmpleados();
     });
   }

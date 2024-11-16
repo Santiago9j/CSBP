@@ -108,16 +108,40 @@ export class VentasComponent implements OnInit {
     if (this.ventaForm.valid) {
       const productoId = parseInt(this.ventaForm.get('producto')?.value);
       const producto = this.productos.find(p => p.id === productoId) as IProducto;
-      const cantidad = this.ventaForm.get('cantidad')?.value as number;
-      const subtotal = producto.costo * cantidad;
+      const cantidadNueva = this.ventaForm.get('cantidad')?.value as number;
 
-      this.selectedProducts.push({ producto, cantidad, subtotal });
-      this.total += subtotal;
+      const productoExistente = this.selectedProducts.find(p => p.producto.id === productoId);
+      const cantidadExistente = productoExistente ? productoExistente.cantidad : 0;
+
+      const cantidadTotal = cantidadExistente + cantidadNueva;
+
+      if (cantidadTotal > producto.cantidad) {
+        this.snackBar.open(
+          `La cantidad total (${cantidadTotal}) excede el stock disponible (${producto.cantidad}).`,
+          'Cerrar',
+          {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            politeness: 'assertive',
+          }
+        );
+        return;
+      }
+
+      if (productoExistente) {
+        productoExistente.cantidad += cantidadNueva;
+        productoExistente.subtotal = productoExistente.cantidad * producto.costo;
+      } else {
+        const subtotal = producto.costo * cantidadNueva;
+        this.selectedProducts.push({ producto, cantidad: cantidadNueva, subtotal });
+      }
+
+      this.total = this.selectedProducts.reduce((acc, item) => acc + item.subtotal, 0);
 
       this.ventaForm.patchValue({ producto: "", cantidad: "" });
     }
   }
-
   removeProduct(index: number) {
     const item = this.selectedProducts[index];
     this.total -= item.subtotal;

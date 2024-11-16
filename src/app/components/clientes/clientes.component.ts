@@ -156,12 +156,10 @@ export class ClientesComponent implements OnInit {
   }
 
   cerrarModal(): void {
-    if (this.tableComponent) {
-      this.tableComponent.cerrarModal();
-    }
     this.clienteForm.reset();
     this.editando = false;
     this.clienteEditadoId = null;
+    this.tableComponent.cerrarModal();
   }
 
 

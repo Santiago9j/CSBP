@@ -5,6 +5,7 @@
       [info]="empleados"
       (delete)="onDelete($event)"
       (edit)="onEdit($event)"
+      (close)="cerrarModal()"
     >
         <form [formGroup]="empleadosForm" (ngSubmit)="submit()">
             <div class="element-form">
